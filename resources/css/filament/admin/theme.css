@@ -1,0 +1,64 @@
+@import "/vendor/filament/filament/resources/css/theme.css";
+
+@config 'tailwind.config.js';
+
+@layer components {
+    #aside-sidebar {
+        @apply bg-blue-700 dark:bg-blue-900;
+    }
+    span.fi-sidebar-item-label {
+        @apply text-gray-600 dark:text-blue-300 group-hover:text-blue-600 dark:group-hover:text-blue-600;
+    }
+    svg.fi-sidebar-item-icon {
+        @apply text-gray-600 dark:text-blue-300 group-hover:text-blue-600 dark:group-hover:text-blue-600;
+    }
+    .fi-sidebar-item.fi-active {
+        @apply bg-gray-700 dark:bg-gray-800; /* Active background color */
+    }
+    
+    .fi-sidebar-item.fi-active .fi-sidebar-item-label {
+        @apply text-gray-700 dark:text-gray-300; /* Active text color */
+    }
+    
+    .fi-sidebar-item.fi-active .fi-sidebar-item-icon {
+        @apply text-gray-700 dark:text-gray-300; /* Active icon color */
+    }
+    .fi-sidebar-item {
+        @apply bg-blue-200 rounded-lg transition duration-200 ease-in-out;
+    }  .fi-sidebar-item:hover {
+        @apply bg-blue-600 rounded-lg transition duration-200 ease-in-out;
+    }
+
+    .fi-sidebar-nav{
+        @apply bg-blue-700 text-white;
+
+    }
+    .fi-icon-btn[title="Create option"] {
+        @apply bg-blue-700 text-white;
+    }
+    .fi-icon-btn[title="Create option"]:hover {
+        @apply bg-blue-500 text-white;
+    }
+    .fi-icon-btn[title="Expand sidebar"] svg {
+        @apply text-black;
+    }
+    svg.fi-icon-btn-icon {
+        @apply text-gray-600;
+    }
+   
+
+    .fi-btn {
+        @apply bg-blue-700;
+    }
+    .fi-link-icon {
+        @apply text-blue-500;
+    }
+  
+    .fi-simple-main {
+        @apply mx-2 sm:rounded-xl md:rounded-xl rounded-xl ;
+    
+    }
+    body {
+        @apply bg-blue-100 bg-opacity-90 !important;
+    }
+}

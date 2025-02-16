@@ -1,0 +1,260 @@
+name: 'Point Transactions'
+description: |-
+
+  APIs for managing customer point transactions.
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/transactions
+    metadata:
+      groupName: 'Point Transactions'
+      groupDescription: |-
+
+        APIs for managing customer point transactions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get all point transactions'
+      description: 'Retrieves a list of all point transactions owned by the authenticated user.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "data": [
+             {
+               "id": 1,
+               "customer_id": 3,
+               "customer_name": "John Doe",
+               "points": 10,
+               "type": "add",
+               "created_at": "2024-02-15 10:00:00"
+             }
+           ]
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 2|cGvRLrSa6Uy6Ld40NCm3EnfjdfF3p80axm7bs9F43cd296d0'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/transactions
+    metadata:
+      groupName: 'Point Transactions'
+      groupDescription: |-
+
+        APIs for managing customer point transactions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a new point transaction'
+      description: "Creates a transaction and updates the customer's total points."
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      customer_id:
+        name: customer_id
+        description: 'The ID of the customer receiving points.'
+        required: true
+        example: 3
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      points:
+        name: points
+        description: 'The number of points to add or deduct.'
+        required: true
+        example: 20
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      type:
+        name: type
+        description: "Must be 'add' or 'reduce'."
+        required: true
+        example: '"add"'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      customer_id: 3
+      points: 20
+      type: '"add"'
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+           "message": "Transaction recorded successfully",
+           "transaction": {
+             "id": 5,
+             "customer_id": 3,
+             "points": 20,
+             "type": "add",
+             "created_at": "2024-02-15 10:30:00"
+           }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 2|cGvRLrSa6Uy6Ld40NCm3EnfjdfF3p80axm7bs9F43cd296d0'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/transactions/{id}'
+    metadata:
+      groupName: 'Point Transactions'
+      groupDescription: |-
+
+        APIs for managing customer point transactions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get a specific point transaction'
+      description: 'Retrieve details of a specific transaction.'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the transaction.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "id": 1,
+           "customer_id": 3,
+           "points": 10,
+           "type": "add",
+           "created_at": "2024-02-15 10:00:00"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 2|cGvRLrSa6Uy6Ld40NCm3EnfjdfF3p80axm7bs9F43cd296d0'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/transactions/{id}'
+    metadata:
+      groupName: 'Point Transactions'
+      groupDescription: |-
+
+        APIs for managing customer point transactions.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a point transaction'
+      description: 'Remove a specific transaction (admin only).'
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the transaction.'
+        required: true
+        example: 5
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: 5
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "message": "Transaction deleted successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Bearer 2|cGvRLrSa6Uy6Ld40NCm3EnfjdfF3p80axm7bs9F43cd296d0'
+    controller: null
+    method: null
+    route: null
+    custom: []

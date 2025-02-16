@@ -1,0 +1,592 @@
+openapi: 3.0.3
+info:
+  title: Pixalink
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000'
+paths:
+  /api/login:
+    post:
+      summary: 'User Login'
+      operationId: userLogin
+      description: 'Authenticate user and return a token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    name: 'John Doe'
+                    email: user@example.com
+                  token: 1|asfghjklqwertyui
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'John Doe'
+                      email:
+                        type: string
+                        example: user@example.com
+                  token:
+                    type: string
+                    example: 1|asfghjklqwertyui
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The provided credentials are incorrect.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The provided credentials are incorrect.'
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: user@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: password123
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: 'User Logout'
+      operationId: userLogout
+      description: 'Revoke user token and logout.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Logged out successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out successfully'
+      tags:
+        - Authentication
+  /api/me:
+    get:
+      summary: 'Get Authenticated User'
+      operationId: getAuthenticatedUser
+      description: 'Returns the currently authenticated user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'John Doe'
+                  email: user@example.com
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'John Doe'
+                  email:
+                    type: string
+                    example: user@example.com
+      tags:
+        - Authentication
+  /api/customers:
+    get:
+      summary: 'Get all customers'
+      operationId: getAllCustomers
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  customers:
+                    -
+                      id: 1
+                      name: 'John Doe'
+                      email: john@example.com
+                      phone: '+60123456789'
+                      total_points: 50
+                      business_id: 1
+                properties:
+                  customers:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'John Doe'
+                        email: john@example.com
+                        phone: '+60123456789'
+                        total_points: 50
+                        business_id: 1
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: 'John Doe'
+                        email:
+                          type: string
+                          example: john@example.com
+                        phone:
+                          type: string
+                          example: '+60123456789'
+                        total_points:
+                          type: integer
+                          example: 50
+                        business_id:
+                          type: integer
+                          example: 1
+      tags:
+        - 'Customer Management'
+    post:
+      summary: 'Create a new customer'
+      operationId: createANewCustomer
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'John Doe'
+                  email: john@example.com
+                  phone: '+60123456789'
+                  total_points: 0
+                  business_id: 1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'John Doe'
+                  email:
+                    type: string
+                    example: john@example.com
+                  phone:
+                    type: string
+                    example: '+60123456789'
+                  total_points:
+                    type: integer
+                    example: 0
+                  business_id:
+                    type: integer
+                    example: 1
+      tags:
+        - 'Customer Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "The customer's name."
+                  example: 'John Doe'
+                  nullable: false
+                email:
+                  type: string
+                  description: "nullable The customer's email."
+                  example: john@example.com
+                  nullable: true
+                phone:
+                  type: string
+                  description: "nullable The customer's phone number."
+                  example: '+60123456789'
+                  nullable: true
+              required:
+                - name
+  '/api/customers/{id}':
+    get:
+      summary: 'Get a single customer'
+      operationId: getASingleCustomer
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'John Doe'
+                  email: john@example.com
+                  phone: '+60123456789'
+                  total_points: 50
+                  business_id: 1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'John Doe'
+                  email:
+                    type: string
+                    example: john@example.com
+                  phone:
+                    type: string
+                    example: '+60123456789'
+                  total_points:
+                    type: integer
+                    example: 50
+                  business_id:
+                    type: integer
+                    example: 1
+      tags:
+        - 'Customer Management'
+    put:
+      summary: 'Update a customer'
+      operationId: updateACustomer
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Jane Doe'
+                  email: jane@example.com
+                  phone: '+60123456789'
+                  total_points: 50
+                  business_id: 1
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Jane Doe'
+                  email:
+                    type: string
+                    example: jane@example.com
+                  phone:
+                    type: string
+                    example: '+60123456789'
+                  total_points:
+                    type: integer
+                    example: 50
+                  business_id:
+                    type: integer
+                    example: 1
+      tags:
+        - 'Customer Management'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "optional The customer's new name."
+                  example: 'Jane Doe'
+                  nullable: false
+                email:
+                  type: string
+                  description: "optional The customer's new email."
+                  example: jane@example.com
+                  nullable: false
+                phone:
+                  type: string
+                  description: "optional The customer's new phone number."
+                  example: '+60123456789'
+                  nullable: false
+    delete:
+      summary: 'Delete a customer'
+      operationId: deleteACustomer
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Customer deleted'
+                properties:
+                  message:
+                    type: string
+                    example: 'Customer deleted'
+      tags:
+        - 'Customer Management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the customer.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/transactions:
+    get:
+      summary: 'Get all point transactions'
+      operationId: getAllPointTransactions
+      description: 'Retrieves a list of all point transactions owned by the authenticated user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      customer_id: 3
+                      customer_name: 'John Doe'
+                      points: 10
+                      type: add
+                      created_at: '2024-02-15 10:00:00'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        customer_id: 3
+                        customer_name: 'John Doe'
+                        points: 10
+                        type: add
+                        created_at: '2024-02-15 10:00:00'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        customer_id:
+                          type: integer
+                          example: 3
+                        customer_name:
+                          type: string
+                          example: 'John Doe'
+                        points:
+                          type: integer
+                          example: 10
+                        type:
+                          type: string
+                          example: add
+                        created_at:
+                          type: string
+                          example: '2024-02-15 10:00:00'
+      tags:
+        - 'Point Transactions'
+    post:
+      summary: 'Store a new point transaction'
+      operationId: storeANewPointTransaction
+      description: "Creates a transaction and updates the customer's total points."
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Transaction recorded successfully'
+                  transaction:
+                    id: 5
+                    customer_id: 3
+                    points: 20
+                    type: add
+                    created_at: '2024-02-15 10:30:00'
+                properties:
+                  message:
+                    type: string
+                    example: 'Transaction recorded successfully'
+                  transaction:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 5
+                      customer_id:
+                        type: integer
+                        example: 3
+                      points:
+                        type: integer
+                        example: 20
+                      type:
+                        type: string
+                        example: add
+                      created_at:
+                        type: string
+                        example: '2024-02-15 10:30:00'
+      tags:
+        - 'Point Transactions'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: integer
+                  description: 'The ID of the customer receiving points.'
+                  example: 3
+                  nullable: false
+                points:
+                  type: integer
+                  description: 'The number of points to add or deduct.'
+                  example: 20
+                  nullable: false
+                type:
+                  type: string
+                  description: "Must be 'add' or 'reduce'."
+                  example: '"add"'
+                  nullable: false
+              required:
+                - customer_id
+                - points
+                - type
+  '/api/transactions/{id}':
+    get:
+      summary: 'Get a specific point transaction'
+      operationId: getASpecificPointTransaction
+      description: 'Retrieve details of a specific transaction.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  customer_id: 3
+                  points: 10
+                  type: add
+                  created_at: '2024-02-15 10:00:00'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  customer_id:
+                    type: integer
+                    example: 3
+                  points:
+                    type: integer
+                    example: 10
+                  type:
+                    type: string
+                    example: add
+                  created_at:
+                    type: string
+                    example: '2024-02-15 10:00:00'
+      tags:
+        - 'Point Transactions'
+    delete:
+      summary: 'Delete a point transaction'
+      operationId: deleteAPointTransaction
+      description: 'Remove a specific transaction (admin only).'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Transaction deleted successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Transaction deleted successfully'
+      tags:
+        - 'Point Transactions'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the transaction.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Authentication
+    description: "\nAPIs for user authentication"
+  -
+    name: 'Customer Management'
+    description: "\nAPIs for managing customers"
+  -
+    name: 'Point Transactions'
+    description: "\nAPIs for managing customer point transactions."
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.'
+security:
+  -
+    default: []
