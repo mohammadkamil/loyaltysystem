@@ -15,21 +15,23 @@ The **Business Loyalty Management Portal** is a simplified loyalty points manage
 
 ---
 
-## 🛠 Setup Instructions
+## 🤝 How to Run the Project
 
-### 1. Clone the Repository
+### 🛠 Setup Instructions (Without Docker)
+
+#### 1. Clone the Repository
 ```sh
 git clone https://github.com/your-repository.git
 cd your-repository
 ```
 
-### 2. Install Dependencies
+#### 2. Install Dependencies
 ```sh
 composer install
 npm install && npm run build
 ```
 
-### 3. Set Up Environment Variables
+#### 3. Set Up Environment Variables
 Copy the `.env.example` file and update your environment settings.
 ```sh
 cp .env.example .env
@@ -44,34 +46,43 @@ DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
 
-### 4. Generate Application Key
+#### 4. Generate Application Key
 ```sh
 php artisan key:generate
 ```
 
-### 5. Run Migrations and Seed Database
+#### 5. Run Migrations and Seed Database
 ```sh
-php artisan migrate --seed
+php artisan migrate:fresh --seed
 ```
 
-### 6. Start the Development Server
+#### 6. Start the Development Server
 ```sh
 php artisan serve
 php artisan queue:work
 ```
+If deploying or updating, restart the queue worker:
+```sh
+php artisan queue:restart
+```
 
-### 7. Create API Documentation
+#### 7. Create API Documentation
+Ensure `scribe` is installed:
+```sh
+composer require knuckleswtf/scribe
+```
+Generate API documentation:
 ```sh
 php artisan scribe:generate
 ```
+You can access the API documentation at `/docs`.
 
-### 8. Create Filament Admin User
+#### 8. Create Filament Admin User
 ```sh
 php artisan make:filament-user
 ```
 Then log in at `/admin` using the created credentials.
 
----
 
 ## 🔑 Demo User
 
@@ -101,6 +112,7 @@ The file should be saved as `.xlsx` or `.csv`.
 - **FilamentPHP**: Provides an intuitive admin panel.
 - **TALL Stack**: Enables fast, dynamic UI updates with Livewire and Alpine.js.
 - **MySQL**: Preferred for its performance and scalability.
+- **Docker**: Provides an isolated and reproducible environment.
 
 ---
 
@@ -120,6 +132,7 @@ The file should be saved as `.xlsx` or `.csv`.
 - [x] **Filament Admin Panel**
 - [x] **API Authentication (Sanctum)**
 - [x] **MySQL Database Setup**
+- [x] **Docker Support**
 
 ---
 
@@ -127,7 +140,7 @@ The file should be saved as `.xlsx` or `.csv`.
 
 - **📊 Analytics & Reports**: Provide insights on customer spending and loyalty.
 - **📢 Notifications**: Notify customers about transactions via email/SMS.
-- **📱 Mobile App**: Implement a mobile-friendly PWA or native app using Flutter.
+- **📱 Mobile App**: Implement a mobile-friendly PWA and consider a native app using Flutter.
 - **💳 Payment Integration**: Allow points to be used for discounts or purchases.
 - **👥 Multi-Tenancy**: Support multiple businesses under one platform.
 
