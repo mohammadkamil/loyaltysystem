@@ -165,7 +165,7 @@ return [
         'time'            => true,  // Time Datalogger
         'memory'          => true,  // Memory usage
         'exceptions'      => true,  // Exception displayer
-        'log'             => true,  // Logs from Monolog (merged in messages if enabled)
+        'log'             => false,  // Logs from Monolog (merged in messages if enabled)
         'db'              => false,  // Show database (PDO) queries and bindings
         'views'           => false,  // Views with their data
         'route'           => true,  // Current route information
